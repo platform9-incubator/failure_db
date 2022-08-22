@@ -13,15 +13,6 @@ CREATE TABLE `builds` (
   `date` datetime
 );
 
-CREATE TABLE `failures` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `suite` varchar(255),
-  `test_module` varchar(255),
-  `test` varchar(255),
-  `message` varchar(255),
-  `md5sum` varchar(255)
-);
-
 CREATE TABLE `users` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `username` varchar(255) UNIQUE
@@ -30,15 +21,20 @@ CREATE TABLE `users` (
 CREATE TABLE `build_failures` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `build_id` int,
-  `failure_id` int,
   `bug_id` varchar(255) COMMENT 'jira bug id',
-  `analyzed_by` int
+  `analyzed_by` int,
+  `is_analyzed` boolean,
+  `job_name` varchar(255) COMMENT 'e.g. 020-pmk-tests-on-bareos',
+  `job_id` int COMMENT 'e.g. job id seen on teamcity 543',
+  `suite` varchar(255) COMMENT 'suite where failure was first seen',
+  `test_module` varchar(255),
+  `test` varchar(255),
+  `message` varchar(255) COMMENT 'original failure message',
+  `md5sum` varchar(255)
 );
 
 ALTER TABLE `builds` ADD FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`);
 
 ALTER TABLE `build_failures` ADD FOREIGN KEY (`build_id`) REFERENCES `builds` (`id`);
-
-ALTER TABLE `build_failures` ADD FOREIGN KEY (`failure_id`) REFERENCES `failures` (`id`);
 
 ALTER TABLE `build_failures` ADD FOREIGN KEY (`analyzed_by`) REFERENCES `users` (`id`);

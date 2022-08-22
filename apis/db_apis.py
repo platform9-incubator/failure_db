@@ -111,23 +111,6 @@ def create_builds():
     """
     return _insert_item("builds")
 
-@app.route('/failures', methods=['GET'])
-def list_failures():
-    """
-    List all failures from failures table
-    """
-    return _list_items("failures")
-
-@app.route('/failures', methods=['POST'])
-def create_failures():
-    """
-    Add failure to the failures table
-    Expected payload structure:
-    {"suite":"c7_bareos", "test_module":"test_bareos", "test": "test_bareos",
-    "message": "guestbook went to library", "md5sum": "failuremd5sum"}
-    """
-    return _insert_item("failures")
-
 @app.route('/build_failures', methods=['GET'])
 def list_build_failures():
     """
@@ -140,7 +123,10 @@ def create_build_failures():
     """
     Add build failure to the build_failures table
     Expected payload structure:
-    {"build_id":"123456", "failure_id":"1", "bug_id": "TESTS-1","analyzed_by": "2"}
+    {"build_id": 1, "bug_id": "TESTS-1", "analyzed_by": "2", "is_analyzed": "0",
+     "job_name": "020-pmk-tests-on-bareos", "job_id": "543", "suite": "qbert_bare_os_u20",
+     "test_module": "test_bareos", "test": "test_cluster", "message": "test_k8s_api failed",
+     "md5sum": "uniquemd5sumoffailure"}
     """
     return _insert_item("build_failures")
 
