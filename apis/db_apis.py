@@ -3,7 +3,7 @@ Flask App to provide API wrappers over the Failure DB backend
 """
 import os
 import json
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, redirect
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
@@ -173,6 +173,8 @@ def update_build_failure(id):
         cursor = mysql.connection.cursor()
         cursor.execute(_query)
         mysql.connection.commit()
+        if request.form:
+            return redirect("/gui/build_failures")
         return jsonify({"status": "success"})
     except Exception as err:
         return jsonify({"status": "failed", "details": str(err)})
