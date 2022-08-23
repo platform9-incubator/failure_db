@@ -32,11 +32,11 @@
           {{failure.teamcity_build_number}}</a> </td>
       <td class="c2">{{failure.job_id}}</td>
       <td class="c2">{{failure.job_name}}</td>
-      <td class="c2">{{failure.suite}}</td>
-      <td class="c2">{{failure.test_module}}</td>
-      <td class="c2">{{failure.test}}</td>
+      <td class="c2"> <a href="build_failures?suite={{failure.suite}}">{{failure.suite}}</a></td>
+      <td class="c2"> <a href="build_failures?test_module={{failure.test_module}}"> {{failure.test_module}} </a></td>
+      <td class="c2"> <a href="build_failures?test={{failure.test}}">{{failure.test}}</a></td>
       <td class="c2">{{failure.message}}</td>
-      <td class="c2">{{failure.md5sum}}</td>
+      <td class="c2"><a href="build_failures?md5sum={{failure.md5sum}}"> {{failure.md5sum}}</a></td>
     </tr>
     {% endfor %}
   </tbody>

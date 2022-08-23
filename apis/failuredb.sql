@@ -20,10 +20,11 @@ CREATE TABLE `users` (
 
 CREATE TABLE `build_failures` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
-  `build_id` int,
+  `build_id` varchar(255),
   `bug_id` varchar(255) COMMENT 'jira bug id',
-  `analyzed_by` int,
+  `analyzed_by` varchar(255),
   `is_analyzed` boolean,
+  `teamcity_build_number` int,
   `job_name` varchar(255) COMMENT 'e.g. 020-pmk-tests-on-bareos',
   `job_id` int COMMENT 'e.g. job id seen on teamcity 543',
   `suite` varchar(255) COMMENT 'suite where failure was first seen',

@@ -25,8 +25,7 @@ def _list_items(table, return_json=False):
         query = f"SELECT * from {table}"
         if request.args: # Process any GET params
             query += " WHERE "
-            for arg in request.args:
-                query += f"{arg}='{request.args[arg]}'"
+            query += " AND ".join([f'{arg}="{request.args[arg]}"' for arg in request.args])
         print(query)
 
         cursor = mysql.connection.cursor()
