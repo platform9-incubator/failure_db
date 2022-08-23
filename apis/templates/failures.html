@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<table id="data" class="table table-striped">
+  <thead>
+    <tr>
+      <th class="c1">ID</th>
+      <th class="c1">Build ID</th>
+      <th class="c1">Analyzed</th>
+      <th class="c1">Analyzed By</th>
+      <th class="c1">Jira Bug</th>
+      <th class="c1">Teamcity Build Number</th>
+      <th class="c1">Teamcity Job ID</th>
+      <th class="c1">Teamcity Job Name</th>
+      <th class="c1">Suite</th>
+      <th class="c1">Test Module</th>
+      <th class="c1">Test</th>
+      <th class="c1">Message</th>
+      <th class="c1">md5 sum</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for failure in build_failures %}
+    <tr>
+      <td class="c2"> <a href="build_failure/{{failure.id}}">{{failure.id}}</a></td>
+      <td class="c2">{{failure.build_id}}</td>
+      <td class="c2">{{failure.is_analyzed}}</td>
+      <td class="c2">{{failure.analyzed_by}}</td>
+      <td class="c2">{{failure.bug_id}}</td>
+      <td class="c2"> <a href="https://teamcity.platform9.horse/build/{{failure.teamcity_build_number}}">
+          {{failure.teamcity_build_number}}</a> </td>
+      <td class="c2">{{failure.job_id}}</td>
+      <td class="c2">{{failure.job_name}}</td>
+      <td class="c2">{{failure.suite}}</td>
+      <td class="c2">{{failure.test_module}}</td>
+      <td class="c2">{{failure.test}}</td>
+      <td class="c2">{{failure.message}}</td>
+      <td class="c2">{{failure.md5sum}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

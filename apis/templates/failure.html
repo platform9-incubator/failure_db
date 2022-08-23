@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<table id="data" class="table table-striped">
+  <thead>
+    <tr>
+      <th class="c1">Build ID</th>
+      <th class="c1">Teamcity Build Number</th>
+      <th class="c1">Teamcity Job ID</th>
+      <th class="c1">Teamcity Job Name</th>
+      <th class="c1">Suite</th>
+      <th class="c1">Test Module</th>
+      <th class="c1">Test</th>
+      <th class="c1">Message</th>
+      <th class="c1">md5 sum</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for failure in build_failures %}
+    <tr>
+      <td class="c2">{{failure.build_id}}</td>
+      <td class="c2">{{failure.teamcity_build_number}}</td>
+      <td class="c2">{{failure.job_id}}</td>
+      <td class="c2">{{failure.job_name}}</td>
+      <td class="c2">{{failure.suite}}</td>
+      <td class="c2">{{failure.test_module}}</td>
+      <td class="c2">{{failure.test}}</td>
+      <td class="c2">{{failure.message}}</td>
+      <td class="c2">{{failure.md5sum}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<form action="{{ url_for('update_build_failure', id=build_failures[0].id) }}" method="POST">
+    <table>
+    <input type="text" name="analyzed_by" placeholder="Analyzed By">
+    <input type="text" name="is_analyzed" placeholder="Is Analyzed">
+    <input type="text" name="bug_id" placeholder="JIRA Bug ID">
+    <input type="submit">
+    </table>
+</form>
+{% endblock %}
